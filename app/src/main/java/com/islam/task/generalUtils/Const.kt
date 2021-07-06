@@ -1,7 +1,5 @@
 package com.islam.task.generalUtils
 
-class Const {
-    val authorization = "Authorization"
-    val exp = "exp"
-    val scope = "MyTask"
+object Const {
+    val wa_key = "coding-puzzle-client-449cc9d"
 }

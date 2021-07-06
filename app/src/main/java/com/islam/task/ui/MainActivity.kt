@@ -5,11 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.islam.task.R
-import com.islam.task.data.db.AppDatabase
-import com.islam.task.generalUtils.*
 import com.islam.task.ui.manufacturer.ManufacturerViewModel
 import com.islam.task.ui.manufacturer.ManufacturerViewModelFactory
-import com.yarolegovich.slidingrootnav.SlidingRootNav
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import org.kodein.di.KodeinAware
@@ -29,7 +26,8 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         setContentView(R.layout.activity_main)
 
-        manufacturerViewModel = ViewModelProvider(this, factory).get(ManufacturerViewModel::class.java)
+        manufacturerViewModel =
+            ViewModelProvider(this, factory).get(ManufacturerViewModel::class.java)
 
         setSupportActionBar(toolbar)
 

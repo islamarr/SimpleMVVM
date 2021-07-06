@@ -1,9 +1,9 @@
 package com.islam.task.data.network
 
 import com.islam.task.data.network.internet.ConnectivityInterCeptor
-import com.islam.task.data.network.response.AuthResponse
 import com.islam.task.generalUtils.Utils
 import com.google.gson.GsonBuilder
+import com.islam.task.data.network.response.ManufacturerResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -45,18 +45,25 @@ interface MyTaskApi {
         }
     }
 
-    @FormUrlEncoded
-    @POST("/connect/token")
-    suspend fun userLogin(
-        @FieldMap loginBody: Map<String, String>
-    ): Response<AuthResponse>
+    @GET("manufacturer")
+    suspend fun getManufacturer(
+        @Query("wa_key") wa_key: String,
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int
+    ): Response<ManufacturerResponse>
 
-    @POST("/api/logout")
-    fun userLogout(
-        @FieldMap auth: String
-      /*  @Header("Authorization") auth: String,
-        @Query("firebase_token") firebase_token: String*/
-    ): Response<AuthResponse>
+    @GET("main-types")
+    suspend fun getMainCarTypes(
+        @Query("wa_key") wa_key: String,
+        @Query("manufacturer") manufacturer: Int,
+    ): Response<ManufacturerResponse>
+
+    @GET("built-dates")
+    suspend fun getCarDates(
+        @Query("wa_key") wa_key: String,
+        @Query("manufacturer") manufacturer: Int,
+        @Query("main-type") mainType: String,
+    ): Response<ManufacturerResponse>
 
 }
 

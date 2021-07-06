@@ -22,8 +22,8 @@ import java.io.ByteArrayOutputStream
 
 object Utils {
 
-    const val DEVURL = "https://161.97.154.135:5000/"
-    const val URL = "https://161.97.154.135:5000/"
+    const val DEVURL = "https://api-aws-eu-qa-1.auto1-test.com/v1/car-types/"
+    const val URL = "https://api-aws-eu-qa-1.auto1-test.com/v1/car-types/"
 
     fun getUrl(): String {
         return if (BuildConfig.DEBUG)
@@ -53,9 +53,6 @@ object Utils {
         }.show()
     }
 
-    fun isTokenExpired(context: Context): Boolean {
-        return System.currentTimeMillis() >= MyTaskParameters(context).getInt(Const().exp) * 1000
-    }
 
     fun isOnline(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE)

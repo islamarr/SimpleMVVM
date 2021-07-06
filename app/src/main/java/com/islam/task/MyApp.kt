@@ -1,11 +1,9 @@
 package com.islam.task
 
 import android.app.Application
-import com.islam.task.data.db.AppDatabase
 import com.islam.task.data.network.internet.ConnectivityInterCeptorImpl
 import com.islam.task.data.network.MyTaskApi
-import com.islam.task.data.repositories.LogoutRepository
-import com.islam.task.data.repositories.UserRepository
+import com.islam.task.data.repositories.ManufacturerRepository
 import com.islam.task.generalUtils.MyTaskParameters
 import com.islam.task.ui.manufacturer.ManufacturerViewModelFactory
 import org.kodein.di.Kodein
@@ -24,12 +22,10 @@ class MyApp : Application(), KodeinAware {
         //initiate Api Service Class
         bind() from singleton { MyTaskApi(instance()) }
         bind() from singleton { ConnectivityInterCeptorImpl(instance()) }
-        bind() from singleton { AppDatabase(instance()) }
-        bind() from singleton { UserRepository(instance(), instance()) }
-        bind() from singleton { LogoutRepository(instance()) }
+        bind() from singleton { ManufacturerRepository(instance()) }
         bind() from singleton { MyTaskParameters(instance()) }
 
-        bind() from provider { ManufacturerViewModelFactory(instance(), instance()) }
+        bind() from provider { ManufacturerViewModelFactory(instance()) }
     }
 
     override fun onCreate() {

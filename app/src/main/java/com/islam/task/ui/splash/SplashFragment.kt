@@ -39,8 +39,6 @@ class SplashFragment : Fragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SplashViewModel::class.java)
 
-        (activity as MainActivity).showHideAppbar(View.GONE)
-
         startApp()
     }
 

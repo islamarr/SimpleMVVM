@@ -17,6 +17,8 @@ import androidx.core.app.ActivityCompat
 import com.islam.task.BuildConfig
 import com.islam.task.R
 import com.google.android.material.snackbar.Snackbar
+import com.islam.task.data.entity.ItemModel
+import org.json.JSONObject
 import timber.log.Timber
 import java.io.ByteArrayOutputStream
 
@@ -30,6 +32,16 @@ object Utils {
             DEVURL
         else
             URL
+    }
+
+    fun convertJsonToArray(startingJsonObj: JSONObject): MutableList<ItemModel> {
+
+        val list = mutableListOf<ItemModel>()
+        for (key in startingJsonObj.keys()) {
+            val value = startingJsonObj.opt(key)
+            list.add(ItemModel(key, value as String))
+        }
+        return list
     }
 
     fun hideKeyboard(context: Activity) {

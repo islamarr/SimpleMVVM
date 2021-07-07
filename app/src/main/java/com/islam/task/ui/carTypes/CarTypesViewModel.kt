@@ -1,12 +1,13 @@
 package com.islam.task.ui.carTypes
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.islam.task.R
-import com.islam.task.generalUtils.ValidationObject
+import com.islam.task.data.network.response.ManufacturerResponse
+import com.islam.task.data.repositories.CarTypesRepository
 
-class CarTypesViewModel : ViewModel() {
+class CarTypesViewModel(private val carTypesRepository: CarTypesRepository) : ViewModel() {
 
+    suspend fun getMainCarTypes(manufacturerId: Int): ManufacturerResponse {
+        return carTypesRepository.getMainCarTypes(manufacturerId)
+    }
 
 }

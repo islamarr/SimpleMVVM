@@ -24,8 +24,6 @@ class SummaryFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(SummaryViewModel::class.java)
 
-        (activity as MainActivity).showHideAppbar(View.VISIBLE)
-        (activity as MainActivity).setAppbarTitle(requireActivity().getString(R.string.send_sms))
 
     }
 

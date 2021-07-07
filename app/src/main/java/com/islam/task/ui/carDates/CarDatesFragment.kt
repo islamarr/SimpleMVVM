@@ -13,9 +13,7 @@ import kotlinx.android.synthetic.main.car_dates_fragment.*
 
 class CarDatesFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = CarDatesFragment()
-    }
+    private lateinit var carType: String
 
     private lateinit var viewModel: CarDatesViewModel
 
@@ -29,12 +27,16 @@ class CarDatesFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        (activity as MainActivity).showHideAppbar(View.VISIBLE)
-        (activity as MainActivity).setAppbarTitle(requireActivity().getString(R.string.map))
-
         viewModel = ViewModelProvider(this).get(CarDatesViewModel::class.java)
 
 
+        arguments.let {
+            if (it != null) {
+                carType = arguments?.getString("carType")!!
+            }
+        }
+
+        navig.setText(carType)
         navig.setOnClickListener {
             findNavController().navigate(R.id.action_carDatesFragment_to_summaryFragment)
         }

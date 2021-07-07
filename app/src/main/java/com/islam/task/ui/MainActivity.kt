@@ -2,6 +2,7 @@ package com.islam.task.ui
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.islam.task.R
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         setSupportActionBar(toolbar)
 
+        mainAppbar.visibility = View.GONE
+
     }
 
     override fun applyOverrideConfiguration(overrideConfiguration: Configuration?) {
@@ -40,14 +43,6 @@ class MainActivity : AppCompatActivity(), KodeinAware {
             overrideConfiguration.uiMode = uiMode
         }
         super.applyOverrideConfiguration(overrideConfiguration)
-    }
-
-    fun showHideAppbar(visibility: Int) {
-        mainAppbar.visibility = visibility
-    }
-
-    fun setAppbarTitle(string: String) {
-        appBarTitle.text = string
     }
 
 

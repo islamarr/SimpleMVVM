@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.islam.task.R
 import com.islam.task.ui.MainActivity
+import timber.log.Timber
 
 class SummaryFragment : Fragment() {
 
@@ -22,8 +24,11 @@ class SummaryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(SummaryViewModel::class.java)
+        viewModel = ViewModelProvider(requireActivity()).get(SummaryViewModel::class.java)
 
+        viewModel.summary.observe(viewLifecycleOwner, Observer {
+            Timber.d("${it.manufacturerName}  ${it.manufacturerCode}  ${it.carType}  ${it.carDate}")
+        })
 
     }
 

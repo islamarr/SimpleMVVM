@@ -59,7 +59,7 @@ class CarDatesFragment : Fragment(), KodeinAware {
             val startingJsonObj = JSONObject(jsonObject.toString())
             val arr = Utils.convertJsonToArray(startingJsonObj)
 
-            val mainAdapter = MainAdapter(arr, 2)
+            val mainAdapter = MainAdapter(requireActivity(), arr, 2)
             carDatesList.layoutManager = LinearLayoutManager(requireActivity())
             carDatesList.adapter = mainAdapter
         }

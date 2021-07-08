@@ -49,7 +49,7 @@ class ManufacturerFragment : Fragment(), KodeinAware{
             val startingJsonObj = JSONObject(jsonObject.toString())
             val arr = Utils.convertJsonToArray(startingJsonObj)
 
-            val mainAdapter = MainAdapter(arr, 0)
+            val mainAdapter = MainAdapter(requireActivity(), arr, 0)
             list.layoutManager = LinearLayoutManager(requireActivity())
             list.adapter = mainAdapter
         }

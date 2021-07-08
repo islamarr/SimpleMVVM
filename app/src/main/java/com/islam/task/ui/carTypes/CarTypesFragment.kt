@@ -56,7 +56,7 @@ class CarTypesFragment : Fragment(), KodeinAware {
             val startingJsonObj = JSONObject(jsonObject.toString())
             val arr = Utils.convertJsonToArray(startingJsonObj)
 
-            val mainAdapter = MainAdapter(arr, 1)
+            val mainAdapter = MainAdapter(requireActivity(), arr, 1)
             carTypeList.layoutManager = LinearLayoutManager(requireActivity())
             carTypeList.adapter = mainAdapter
         }

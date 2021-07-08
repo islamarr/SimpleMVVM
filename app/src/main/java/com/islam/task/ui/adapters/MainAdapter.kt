@@ -41,7 +41,8 @@ class MainAdapter(var list: MutableList<ItemModel>, var fragmentIndex: Int) :
                         .navigate(R.id.action_carTypesFragment_to_carDatesFragment, bundle)
                 }
                 2 -> {
-
+                    bundle.putString("sss", listItems.key)
+                    view.findNavController().navigate(R.id.action_carDatesFragment_to_summaryFragment)
                 }
             }
         }

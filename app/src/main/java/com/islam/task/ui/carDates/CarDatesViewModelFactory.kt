@@ -1,16 +1,17 @@
-package com.islam.task.ui.carTypes
+package com.islam.task.ui.carDates
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.islam.task.data.repositories.CarDatesRepository
 import com.islam.task.data.repositories.CarTypesRepository
 import com.islam.task.data.repositories.ManufacturerRepository
 
-class CarTypesViewModelFactory(
-    private val carTypesRepository: CarTypesRepository,
+class CarDatesViewModelFactory(
+    private val carDatesRepository: CarDatesRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return CarTypesViewModel(carTypesRepository) as T
+        return CarDatesViewModel(carDatesRepository) as T
     }
 }

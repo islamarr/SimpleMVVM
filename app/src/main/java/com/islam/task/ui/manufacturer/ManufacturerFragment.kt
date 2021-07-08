@@ -54,11 +54,6 @@ class ManufacturerFragment : Fragment(), KodeinAware{
             list.adapter = mainAdapter
         }
 
-
-
     }
-
-
-
 
 }

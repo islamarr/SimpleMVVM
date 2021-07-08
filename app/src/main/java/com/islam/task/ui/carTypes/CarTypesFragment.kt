@@ -61,9 +61,6 @@ class CarTypesFragment : Fragment(), KodeinAware {
             carTypeList.adapter = mainAdapter
         }
 
-        /* confirmButton.setOnClickListener {
-             findNavController().navigate(R.id.action_carTypesFragment_to_carDatesFragment)
-         }*/
     }
 
 }

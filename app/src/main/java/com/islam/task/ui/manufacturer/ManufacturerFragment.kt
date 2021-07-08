@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -19,6 +20,7 @@ import kotlinx.android.synthetic.main.item_list.*
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import org.kodein.di.KodeinAware
@@ -49,7 +51,27 @@ class ManufacturerFragment : Fragment(), KodeinAware {
 
         viewModel = ViewModelProvider(this, factory).get(ManufacturerViewModel::class.java)
 
-        GlobalScope.launch(Dispatchers.Main) {
+        val mainAdapter = MainAdapter(arrayListOf(), object : NavigateListener {
+            override fun onNavigate(itemModel: ItemModel) {
+                SummaryObject.summaryModel.manufacturerCode = itemModel.key
+                SummaryObject.summaryModel.manufacturerName = itemModel.value
+
+                findNavController().navigate(R.id.action_manufacturerFragment_to_carTypesFragment)
+            }
+
+        })
+        loadingProgressBar.visibility = View.GONE
+        list.layoutManager = LinearLayoutManager(requireActivity())
+        list.adapter = mainAdapter
+
+        lifecycleScope.launch {
+            viewModel.manufacturerList.collectLatest {
+               // showEmptyList(false)
+                mainAdapter.submitData(it)
+            }
+        }
+
+      /*  GlobalScope.launch(Dispatchers.Main) {
             val wkda = viewModel.getManufacturer().wkda
 
             val gson = Gson()
@@ -69,7 +91,7 @@ class ManufacturerFragment : Fragment(), KodeinAware {
             loadingProgressBar.visibility = View.GONE
             list.layoutManager = LinearLayoutManager(requireActivity())
             list.adapter = mainAdapter
-        }
+        }*/
 
     }
 

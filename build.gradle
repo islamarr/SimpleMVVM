@@ -5,6 +5,7 @@ buildscript {
     ext.retrofit_version = '2.7.2'
     ext.kodein_version = '6.2.1'
     ext.room_version = '2.2.6'
+    ext.paging_version = '3.0.0-beta01'
     repositories {
         google()
         jcenter()

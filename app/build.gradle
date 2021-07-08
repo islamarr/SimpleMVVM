@@ -63,18 +63,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
-    //Custom sliding menu
-    implementation 'com.yarolegovich:sliding-root-nav:1.1.1'
-    //Map
-    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    //country code
-    implementation 'com.hbb20:ccp:2.3.7'
-    //validate phone number
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.12.3'
-    //Android Room
-    implementation "androidx.room:room-runtime:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
+    //Paging
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.2'

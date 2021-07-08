@@ -9,8 +9,8 @@ import com.islam.task.generalUtils.Utils
 
 class ManufacturerRepository(private val api: MyTaskApi) : SafeApiRequest() {
 
-    suspend fun getManufacturer(): ManufacturerResponse {
-        return apiRequest { api.getManufacturer(Const.wa_key,0, 15) }
+    suspend fun getManufacturer(page: Int, pageSize: Int): ManufacturerResponse {
+        return apiRequest { api.getManufacturer(Const.wa_key,page, pageSize) }
     }
 
 }

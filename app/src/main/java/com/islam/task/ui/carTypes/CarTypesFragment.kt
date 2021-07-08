@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.gms.common.data.DataHolder
 import com.google.gson.Gson
 import com.islam.task.R
 import com.islam.task.data.entity.ItemModel

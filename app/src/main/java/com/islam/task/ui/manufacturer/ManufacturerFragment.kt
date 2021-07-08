@@ -15,8 +15,8 @@ import com.islam.task.generalUtils.SummaryObject
 import com.islam.task.generalUtils.Utils
 import com.islam.task.ui.NavigateListener
 import com.islam.task.ui.adapters.MainAdapter
-import com.islam.task.ui.summary.SummaryViewModel
-import kotlinx.android.synthetic.main.manufacturer_fragment.*
+import kotlinx.android.synthetic.main.item_list.*
+import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -32,21 +32,22 @@ class ManufacturerFragment : Fragment(), KodeinAware {
 
     private lateinit var viewModel: ManufacturerViewModel
     private val factory: ManufacturerViewModelFactory by instance()
-    private lateinit var summaryViewModel: SummaryViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.manufacturer_fragment, container, false)
+        return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toolbar.text = "Manufacturer"
+        search.visibility = View.GONE
+
         viewModel = ViewModelProvider(this, factory).get(ManufacturerViewModel::class.java)
-        summaryViewModel = ViewModelProvider(requireActivity()).get(SummaryViewModel::class.java)
 
         GlobalScope.launch(Dispatchers.Main) {
             val wkda = viewModel.getManufacturer().wkda
@@ -65,6 +66,7 @@ class ManufacturerFragment : Fragment(), KodeinAware {
                 }
 
             })
+            loadingProgressBar.visibility = View.GONE
             list.layoutManager = LinearLayoutManager(requireActivity())
             list.adapter = mainAdapter
         }

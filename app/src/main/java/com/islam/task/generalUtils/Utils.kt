@@ -73,40 +73,4 @@ object Utils {
         return networkInfo != null && networkInfo.isConnected
     }
 
-    fun permissionCheck(
-        activity: Activity?,
-        permission: String?
-    ): Boolean {
-        return ActivityCompat.checkSelfPermission(
-            activity!!,
-            permission!!
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-
-    fun convertToStringBase64(context: Context, selectedfile: Uri): String {
-        var bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver, selectedfile)
-
-        var bitmapOut = Bitmap.createScaledBitmap(bitmap, 320, 480, false)
-
-        var outputStream = ByteArrayOutputStream()
-        bitmapOut.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
-        var byteArray = outputStream.toByteArray()
-
-        //Use your Base64 String as you wish
-        var encodedString = Base64.encodeToString(byteArray, Base64.DEFAULT)
-
-        var encodedWithdata = "data:image/png;base64,$encodedString"
-
-        Timber.d("encodedImage  $encodedWithdata")
-
-        return encodedWithdata
-    }
-
-    fun openUrl(context: Context, url: String?) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(url)
-        context.startActivity(intent)
-    }
-
 }

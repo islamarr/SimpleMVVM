@@ -23,7 +23,7 @@
         android:id="@+id/manufacturerFragment"
         android:name="com.islam.task.ui.manufacturer.ManufacturerFragment"
         android:label="manufacturer_fragment"
-        tools:layout="@layout/manufacturer_fragment">
+        tools:layout="@layout/item_list">
 
         <action
             android:id="@+id/action_manufacturerFragment_to_carTypesFragment"
@@ -34,7 +34,7 @@
         android:id="@+id/carDatesFragment"
         android:name="com.islam.task.ui.carDates.CarDatesFragment"
         android:label="car_dates_fragment"
-        tools:layout="@layout/car_dates_fragment" >
+        tools:layout="@layout/main_fragment" >
 
         <action
             android:id="@+id/action_carDatesFragment_to_summaryFragment"
@@ -51,7 +51,7 @@
         android:id="@+id/carTypesFragment"
         android:name="com.islam.task.ui.carTypes.CarTypesFragment"
         android:label="car_types_fragment"
-        tools:layout="@layout/car_types_fragment" >
+        tools:layout="@layout/main_fragment" >
   
         <action
             android:id="@+id/action_carTypesFragment_to_carDatesFragment"

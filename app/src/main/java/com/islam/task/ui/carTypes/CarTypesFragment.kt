@@ -6,11 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.islam.task.R
+import com.islam.task.data.entity.ItemModel
+import com.islam.task.data.entity.SummaryModel
+import com.islam.task.generalUtils.SummaryObject
 import com.islam.task.generalUtils.Utils
+import com.islam.task.ui.NavigateListener
 import com.islam.task.ui.adapters.MainAdapter
+import com.islam.task.ui.summary.SummaryViewModel
 import kotlinx.android.synthetic.main.car_types_fragment.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,6 +34,8 @@ class CarTypesFragment : Fragment(), KodeinAware {
     private lateinit var viewModel: CarTypesViewModel
     private val factory: CarTypesViewModelFactory by instance()
     private lateinit var manufacturerId: String
+    private lateinit var summaryViewModel: SummaryViewModel
+    private var summaryModel = SummaryModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,23 +48,24 @@ class CarTypesFragment : Fragment(), KodeinAware {
         super.onActivityCreated(savedInstanceState)
 
         viewModel = ViewModelProvider(this, factory).get(CarTypesViewModel::class.java)
-
-        arguments.let {
-            if (it != null) {
-                manufacturerId = arguments?.getString("manufacturer")!!
-            }
-        }
-
+        summaryViewModel = ViewModelProvider(requireActivity()).get(SummaryViewModel::class.java)
 
         GlobalScope.launch(Dispatchers.Main) {
-            val wkda = viewModel.getMainCarTypes(manufacturerId.toInt()).wkda
+            val wkda =
+                viewModel.getMainCarTypes(SummaryObject.summaryModel.manufacturerCode!!.toInt()).wkda
 
             val gson = Gson()
             val jsonObject = gson.toJsonTree(wkda).asJsonObject
             val startingJsonObj = JSONObject(jsonObject.toString())
             val arr = Utils.convertJsonToArray(startingJsonObj)
 
-            val mainAdapter = MainAdapter(requireActivity(), arr, 1)
+            val mainAdapter = MainAdapter(arr, object : NavigateListener {
+                override fun onNavigate(itemModel: ItemModel) {
+                    SummaryObject.summaryModel.carType = itemModel.key
+                    findNavController().navigate(R.id.action_carTypesFragment_to_carDatesFragment)
+                }
+
+            })
             carTypeList.layoutManager = LinearLayoutManager(requireActivity())
             carTypeList.adapter = mainAdapter
         }

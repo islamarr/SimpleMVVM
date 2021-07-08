@@ -1,15 +1,14 @@
 package com.islam.task.ui.summary
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.islam.task.R
-import com.islam.task.ui.MainActivity
-import timber.log.Timber
+import com.islam.task.generalUtils.SummaryObject
+import kotlinx.android.synthetic.main.summary_fragment.*
 
 class SummaryFragment : Fragment() {
 
@@ -24,11 +23,11 @@ class SummaryFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(SummaryViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(SummaryViewModel::class.java)
 
-        viewModel.summary.observe(viewLifecycleOwner, Observer {
-            Timber.d("${it.manufacturerName}  ${it.manufacturerCode}  ${it.carType}  ${it.carDate}")
-        })
+        val it = SummaryObject.summaryModel
+
+        sendButton.setText("${it.manufacturerName}  ${it.manufacturerCode}  ${it.carType}  ${it.carDate}")
 
     }
 

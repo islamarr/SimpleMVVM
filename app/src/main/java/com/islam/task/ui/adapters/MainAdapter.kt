@@ -7,6 +7,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.common.data.DataHolder
 import com.islam.task.R
 import com.islam.task.data.entity.ItemModel
 import com.islam.task.ui.NavigateListener
@@ -56,5 +57,10 @@ class MainAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var text: TextView = itemView.label
         var row: LinearLayout = itemView.row
+    }
+
+    fun updateList(updatedList: MutableList<ItemModel>) {
+        list = updatedList
+        notifyDataSetChanged()
     }
 }

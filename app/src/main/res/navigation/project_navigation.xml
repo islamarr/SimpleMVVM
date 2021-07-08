@@ -27,7 +27,11 @@
 
         <action
             android:id="@+id/action_manufacturerFragment_to_carTypesFragment"
-            app:destination="@id/carTypesFragment" />
+            app:destination="@id/carTypesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <fragment
@@ -38,7 +42,11 @@
 
         <action
             android:id="@+id/action_carDatesFragment_to_summaryFragment"
-            app:destination="@id/summaryFragment" />
+            app:destination="@id/summaryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/summaryFragment"
@@ -55,6 +63,10 @@
   
         <action
             android:id="@+id/action_carTypesFragment_to_carDatesFragment"
-            app:destination="@id/carDatesFragment" />
+            app:destination="@id/carDatesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 </navigation>

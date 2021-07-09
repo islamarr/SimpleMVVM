@@ -1,4 +1,4 @@
-package com.islam.task.ui.manufacturer
+package com.islam.task.utils
 
 import androidx.test.espresso.idling.CountingIdlingResource
 

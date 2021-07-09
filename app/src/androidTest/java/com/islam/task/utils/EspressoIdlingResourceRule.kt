@@ -1,7 +1,7 @@
-package com.codingwithmitch.espressouitestexamples.util
+package com.islam.task.utils
 
 import androidx.test.espresso.IdlingRegistry
-import com.islam.task.ui.manufacturer.EspressoIdlingResource
+import com.islam.task.utils.EspressoIdlingResource
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 

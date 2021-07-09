@@ -53,16 +53,6 @@ class CarTypesFragment : Fragment(), KodeinAware {
         )
         search.visibility = View.VISIBLE
 
-        search.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                filter(s.toString())
-            }
-
-        })
-
         viewModel = ViewModelProvider(this, factory).get(CarTypesViewModel::class.java)
 
         Coroutines.main {
@@ -74,6 +64,8 @@ class CarTypesFragment : Fragment(), KodeinAware {
                 val jsonObject = gson.toJsonTree(wkda).asJsonObject
                 val stringJsonObj = JSONObject(jsonObject.toString())
                 arr = Utils.convertJsonToArray(stringJsonObj)
+
+                initSearch()
 
                 emptyList.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE
@@ -96,6 +88,17 @@ class CarTypesFragment : Fragment(), KodeinAware {
             }
         }
 
+    }
+
+    private fun initSearch() {
+        search.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                filter(s.toString())
+            }
+
+        })
     }
 
     private fun initRecyclerView() {

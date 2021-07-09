@@ -2,34 +2,7 @@
     <string name="app_name">IslamTask</string>
     <!-- Strings related to splash -->
     <string name="spalsh_message">Welcome to My Task</string>
-    <!-- Strings related to login -->
-    <string name="prompt_phone">Phone Number</string>
-    <string name="prompt_password">Password</string>
-    <string name="register">Register</string>
-    <string name="new_user">New User?</string>
-    <string name="sign_in">Sign in</string>
-    <string name="forgot_password">Forgot password?</string>
-    <!-- Strings related to menu -->
-    <string name="profile">Profile</string>
-    <string name="logout">Log out</string>
-    <string name="map">Map</string>
-    <!-- Strings related to validation -->
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_phone">Not a valid phone number</string>
-    <string name="invalid_password">Password should be 8 &#8211; 12 characters: including at least 1 Capital Letter, 1 Number, 1 Special Character.</string>
-    <string name="password_not_match">Please ensure that the passwords match</string>
-    <!-- Strings related to password -->
-    <string name="reset_password">Reset Password</string>
-    <string name="send_sms">Send the activation code</string>
-    <string name="confirm_pass">Confirm Password</string>
-    <string name="confirm">Confirm</string>
-    <string name="send">Send</string>
 
-    <!-- General -->
-    <string-array name="languages_tag">
-        <item>ar</item>
-        <item>en</item>
-    </string-array>
     <string name="no_internet_connection">Make sure you have an active Internet connection!</string>
     <string name="error">Something went wrong, try again!</string>
     <string name="permission_denied">You are not allowed to log in</string>

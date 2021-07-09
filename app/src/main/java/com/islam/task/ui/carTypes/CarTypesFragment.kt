@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.islam.task.R
 import com.islam.task.data.entity.ItemModel
-import com.islam.task.generalUtils.SummaryObject
-import com.islam.task.generalUtils.Utils
+import com.islam.task.generalUtils.*
 import com.islam.task.ui.NavigateListener
 import com.islam.task.ui.adapters.MainAdapter
 import kotlinx.android.synthetic.main.item_list.*
@@ -63,31 +62,45 @@ class CarTypesFragment : Fragment(), KodeinAware {
 
         viewModel = ViewModelProvider(this, factory).get(CarTypesViewModel::class.java)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val wkda =
-                viewModel.getMainCarTypes(SummaryObject.summaryModel.manufacturerCode!!.toInt()).wkda
+        Coroutines.main {
+            try {
+                val wkda =
+                    viewModel.getMainCarTypes(SummaryObject.summaryModel.manufacturerCode!!.toInt()).wkda
 
-            val gson = Gson()
-            val jsonObject = gson.toJsonTree(wkda).asJsonObject
-            val startingJsonObj = JSONObject(jsonObject.toString())
-            arr = Utils.convertJsonToArray(startingJsonObj)
+                val gson = Gson()
+                val jsonObject = gson.toJsonTree(wkda).asJsonObject
+                val startingJsonObj = JSONObject(jsonObject.toString())
+                arr = Utils.convertJsonToArray(startingJsonObj)
 
-            loadingProgressBar.visibility = View.GONE
+                emptyList.visibility = View.GONE
+                loadingProgressBar.visibility = View.GONE
 
-            if (arr.isEmpty()) {
-                emptyList.visibility = View.VISIBLE
-                return@launch
-            }
-            mainAdapter = MainAdapter(arr, object : NavigateListener {
-                override fun onNavigate(itemModel: ItemModel) {
-                    SummaryObject.summaryModel.carType = itemModel.key
-                    findNavController().navigate(R.id.action_carTypesFragment_to_carDatesFragment)
+                if (arr.isEmpty()) {
+                    emptyList.visibility = View.VISIBLE
+                    return@main
                 }
+                mainAdapter = MainAdapter(arr, object : NavigateListener {
+                    override fun onNavigate(itemModel: ItemModel) {
+                        SummaryObject.summaryModel.carType = itemModel.key
+                        findNavController().navigate(R.id.action_carTypesFragment_to_carDatesFragment)
+                    }
 
-            })
-            list.apply {
-                layoutManager = LinearLayoutManager(requireActivity())
-                adapter = mainAdapter
+                })
+
+
+
+                list.apply {
+                    layoutManager = LinearLayoutManager(requireActivity())
+                    adapter = mainAdapter
+                }
+            } catch (e: ApiException) {
+                loadingProgressBar.visibility = View.GONE
+                emptyList.visibility = View.VISIBLE
+                emptyList.text = getString(R.string.error)
+            } catch (ne: NoInternetException) {
+                loadingProgressBar.visibility = View.GONE
+                emptyList.visibility = View.VISIBLE
+                emptyList.text = getString(R.string.no_internet_connection)
             }
         }
 

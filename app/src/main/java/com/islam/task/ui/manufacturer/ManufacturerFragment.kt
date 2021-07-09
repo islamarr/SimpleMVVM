@@ -1,10 +1,8 @@
 package com.islam.task.ui.manufacturer
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -12,11 +10,11 @@ import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.islam.task.R
 import com.islam.task.data.entity.ItemModel
+import com.islam.task.databinding.MainFragmentBinding
 import com.islam.task.generalUtils.SummaryObject
+import com.islam.task.ui.BaseFragment
 import com.islam.task.ui.NavigateListener
 import com.islam.task.ui.adapters.ManufacturerAdapter
-import kotlinx.android.synthetic.main.item_list.*
-import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
@@ -24,7 +22,7 @@ import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
 
-class ManufacturerFragment : Fragment(), KodeinAware {
+class ManufacturerFragment : BaseFragment<MainFragmentBinding>(), KodeinAware {
 
     override val kodein by kodein()
 
@@ -32,19 +30,13 @@ class ManufacturerFragment : Fragment(), KodeinAware {
     private val factory: ManufacturerViewModelFactory by instance()
     private lateinit var manufacturerAdapter: ManufacturerAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.main_fragment, container, false)
-    }
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> MainFragmentBinding
+        get() = MainFragmentBinding::inflate
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun setupOnViewCreated(view: View) {
 
-        toolbar.text = getString(R.string.manufacturer)
-        search.visibility = View.GONE
+        binding.toolbar.text = getString(R.string.manufacturer)
+        binding.search.visibility = View.GONE
 
         viewModel = ViewModelProvider(this, factory).get(ManufacturerViewModel::class.java)
 
@@ -58,10 +50,10 @@ class ManufacturerFragment : Fragment(), KodeinAware {
 
         manufacturerAdapter.addLoadStateListener { loadState ->
             if (loadState.refresh is LoadState.Loading) {
-                loadingProgressBar.visibility = View.VISIBLE
+                binding.listLayout.loadingProgressBar.visibility = View.VISIBLE
             } else {
-                emptyList.visibility = View.GONE
-                loadingProgressBar.visibility = View.GONE
+                binding.listLayout.emptyList.visibility = View.GONE
+                binding.listLayout.loadingProgressBar.visibility = View.GONE
 
                 val errorState = when {
                     loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
@@ -70,8 +62,8 @@ class ManufacturerFragment : Fragment(), KodeinAware {
                     else -> null
                 }
                 errorState?.let {
-                    emptyList.visibility = View.VISIBLE
-                    emptyList.text = getString(R.string.no_internet_connection)
+                    binding.listLayout.emptyList.visibility = View.VISIBLE
+                    binding.listLayout.emptyList.text = getString(R.string.no_internet_connection)
                 }
             }
         }
@@ -80,7 +72,7 @@ class ManufacturerFragment : Fragment(), KodeinAware {
     }
 
     private fun initRecyclerView() {
-        list.apply {
+        binding.listLayout.list.apply {
             manufacturerAdapter = ManufacturerAdapter(object : NavigateListener {
                 override fun onNavigate(itemModel: ItemModel) {
                     SummaryObject.summaryModel.manufacturerCode = itemModel.key

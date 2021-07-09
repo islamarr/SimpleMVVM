@@ -13,9 +13,7 @@ import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 
-class SplashFragment : Fragment(), KodeinAware {
-
-    override val kodein by kodein()
+class SplashFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

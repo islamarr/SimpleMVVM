@@ -9,8 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.islam.task.R
 import com.islam.task.data.entity.ItemModel
+import com.islam.task.databinding.OneItemListBinding
 import com.islam.task.ui.NavigateListener
-import kotlinx.android.synthetic.main.one_item_list.view.*
 
 
 class MainAdapter(
@@ -20,8 +20,10 @@ class MainAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.one_item_list, parent, false)
+            OneItemListBinding.bind(
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.one_item_list, parent, false)
+            )
         )
     }
 
@@ -36,7 +38,7 @@ class MainAdapter(
 
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: OneItemListBinding) : RecyclerView.ViewHolder(itemView.root) {
         private var label: TextView = itemView.label
         private var row: LinearLayout = itemView.row
 

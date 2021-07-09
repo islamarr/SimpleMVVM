@@ -24,6 +24,8 @@
         android:hint="@string/search"
         android:padding="10dp" />
 
-    <include layout="@layout/item_list" />
+    <include
+        android:id="@+id/listLayout"
+        layout="@layout/item_list" />
 
 </LinearLayout>

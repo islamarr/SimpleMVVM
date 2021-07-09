@@ -70,8 +70,10 @@ class CarDatesFragment : Fragment(), KodeinAware {
 
             })
             loadingProgressBar.visibility = View.GONE
-            list.layoutManager = LinearLayoutManager(requireActivity())
-            list.adapter = mainAdapter
+            list.apply {
+                layoutManager = LinearLayoutManager(requireActivity())
+                adapter = mainAdapter
+            }
         }
 
     }

@@ -85,8 +85,10 @@ class CarTypesFragment : Fragment(), KodeinAware {
                 }
 
             })
-            list.layoutManager = LinearLayoutManager(requireActivity())
-            list.adapter = mainAdapter
+            list.apply {
+                layoutManager = LinearLayoutManager(requireActivity())
+                adapter = mainAdapter
+            }
         }
 
     }

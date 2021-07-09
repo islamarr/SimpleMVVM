@@ -1,13 +1,16 @@
 package com.islam.task.ui.manufacturer
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.islam.task.R
 import com.islam.task.data.entity.ItemModel
@@ -46,7 +49,7 @@ class ManufacturerFragment : Fragment(), KodeinAware {
 
         viewModel = ViewModelProvider(this, factory).get(ManufacturerViewModel::class.java)
 
-        val mainAdapter = ManufacturerAdapter(object : NavigateListener {
+        val manufacturerAdapter = ManufacturerAdapter(object : NavigateListener {
             override fun onNavigate(itemModel: ItemModel) {
                 SummaryObject.summaryModel.manufacturerCode = itemModel.key
                 SummaryObject.summaryModel.manufacturerName = itemModel.value
@@ -55,13 +58,35 @@ class ManufacturerFragment : Fragment(), KodeinAware {
             }
 
         })
-        loadingProgressBar.visibility = View.GONE
-        list.layoutManager = LinearLayoutManager(requireActivity())
-        list.adapter = mainAdapter
+        list.apply {
+            layoutManager = LinearLayoutManager(requireActivity())
+            adapter = manufacturerAdapter
+        }
 
         lifecycleScope.launch {
             viewModel.manufacturerList.collectLatest {
-                mainAdapter.submitData(it)
+                manufacturerAdapter.submitData(it)
+            }
+        }
+
+        manufacturerAdapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading){
+                loadingProgressBar.visibility = View.VISIBLE
+            }
+            else{
+                emptyList.visibility = View.GONE
+                loadingProgressBar.visibility = View.GONE
+
+                val errorState = when {
+                    loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+                    loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+                    loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+                    else -> null
+                }
+                errorState?.let {
+                    emptyList.visibility = View.VISIBLE
+                    emptyList.text = getString(R.string.no_internet_connection)
+                }
             }
         }
 

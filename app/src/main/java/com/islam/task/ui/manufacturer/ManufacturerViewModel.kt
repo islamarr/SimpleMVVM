@@ -1,42 +1,27 @@
 package com.islam.task.ui.manufacturer
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import com.islam.task.data.network.response.ManufacturerResponse
 import com.islam.task.data.repositories.ManufacturerRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.islam.task.generalUtils.Const
 
 class ManufacturerViewModel(private val manufacturerRepository: ManufacturerRepository) : ViewModel() {
-
-    /*private val _queryLiveData = MutableLiveData<List<TripItem>>()
-    var queryLiveData: LiveData<List<TripItem>> = _queryLiveData
-
-    init {
-        DataSource.tripRequestBody.skipCount = 0
-        DataSource.tripRequestBody.maxResultCount = 10
-
-        repository.queryLiveData.observeForever {
-            _queryLiveData.postValue(it)
-        }
-    }*/
 
     var manufacturerList =
         Pager(
             config = PagingConfig(
-                pageSize = 15,
+                pageSize = Const.PAGE_SIZE,
                 enablePlaceholders = false,
-                initialLoadSize = 15
+                initialLoadSize = Const.PAGE_SIZE
             ),
             pagingSourceFactory = {
-                DataSource(manufacturerRepository)
+                ManufacturerDataSource(manufacturerRepository)
             }
         ).flow
 
     suspend fun getManufacturer() : ManufacturerResponse {
-       return manufacturerRepository.getManufacturer(0, 15)
+       return manufacturerRepository.getManufacturer(0, Const.PAGE_SIZE)
     }
 }

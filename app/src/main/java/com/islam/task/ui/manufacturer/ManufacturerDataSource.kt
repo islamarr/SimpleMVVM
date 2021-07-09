@@ -4,28 +4,26 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.google.gson.Gson
 import com.islam.task.data.entity.ItemModel
-import com.islam.task.data.entity.PagingData
 import com.islam.task.data.repositories.ManufacturerRepository
 import com.islam.task.generalUtils.Const
 import com.islam.task.generalUtils.Utils
 import org.json.JSONObject
 import timber.log.Timber
 
-class DataSource(private val repository: ManufacturerRepository) : PagingSource<Int, ItemModel>() {
+class ManufacturerDataSource(private val repository: ManufacturerRepository) : PagingSource<Int, ItemModel>() {
 
     companion object {
         private const val START_INDEX = 0
-        var pagingData = PagingData()
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ItemModel> {
         val pos = params.key ?: START_INDEX
-        val startIndex = pos * params.loadSize
-        val endIndex = (pos + 1) * params.loadSize
-        return try {
-            pagingData.page = startIndex
 
-            val wkda = repository.getManufacturer(startIndex, 15).wkda
+        return try {
+
+            Timber.d(pos.toString())
+
+            val wkda = repository.getManufacturer(pos, Const.PAGE_SIZE).wkda
             val gson = Gson()
             val jsonObject = gson.toJsonTree(wkda).asJsonObject
             val startingJsonObj = JSONObject(jsonObject.toString())

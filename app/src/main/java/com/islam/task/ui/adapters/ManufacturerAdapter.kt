@@ -15,10 +15,24 @@ import com.islam.task.ui.NavigateListener
 import kotlinx.android.synthetic.main.one_item_list.view.*
 
 
-class MainAdapter(
-    private var list: MutableList<ItemModel>,
+class ManufacturerAdapter(
     private val navigateListener: NavigateListener
-) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+) : PagingDataAdapter<ItemModel, ManufacturerAdapter.ViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ItemModel>() {
+            override fun areItemsTheSame(oldTripItem: ItemModel, newTripItem: ItemModel): Boolean {
+
+                return oldTripItem.key == newTripItem.key
+            }
+
+            override fun areContentsTheSame(oldTripItem: ItemModel, newTripItem: ItemModel): Boolean {
+
+                return oldTripItem == newTripItem
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -27,14 +41,12 @@ class MainAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val listItems = list[position]
+        val listItems = getItem(position)
 
-        holder.bind(listItems)
+        if (listItems != null) {
+            holder.bind(listItems)
+        }
 
     }
 
@@ -64,8 +76,4 @@ class MainAdapter(
         }
     }
 
-    fun updateList(updatedList: MutableList<ItemModel>) {
-        list = updatedList
-        notifyDataSetChanged()
-    }
 }

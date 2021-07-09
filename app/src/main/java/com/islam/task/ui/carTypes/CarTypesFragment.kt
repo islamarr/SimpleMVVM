@@ -33,7 +33,6 @@ class CarTypesFragment : Fragment(), KodeinAware {
 
     override val kodein by kodein()
 
-
     private lateinit var viewModel: CarTypesViewModel
     private val factory: CarTypesViewModelFactory by instance()
     private lateinit var mainAdapter: MainAdapter
@@ -58,8 +57,8 @@ class CarTypesFragment : Fragment(), KodeinAware {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                    Timber.d(s.toString())
-                    filter(s.toString())
+                Timber.d(s.toString())
+                filter(s.toString())
             }
 
         })

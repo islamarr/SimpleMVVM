@@ -43,7 +43,8 @@ class CarDatesFragment : Fragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        toolbar.text = "Car Built Date >> ${SummaryObject.summaryModel.manufacturerName}  >> ${SummaryObject.summaryModel.carType}"
+        toolbar.text =
+            "Car Built Date >> ${SummaryObject.summaryModel.manufacturerName}  >> ${SummaryObject.summaryModel.carType}"
         search.visibility = View.GONE
 
         viewModel = ViewModelProvider(this, factory).get(CarDatesViewModel::class.java)

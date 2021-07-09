@@ -25,6 +25,8 @@ class SplashFragment : Fragment(), KodeinAware {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
         startApp()
     }
 

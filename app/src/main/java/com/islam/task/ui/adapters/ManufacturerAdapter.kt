@@ -27,7 +27,10 @@ class ManufacturerAdapter(
                 return oldTripItem.key == newTripItem.key
             }
 
-            override fun areContentsTheSame(oldTripItem: ItemModel, newTripItem: ItemModel): Boolean {
+            override fun areContentsTheSame(
+                oldTripItem: ItemModel,
+                newTripItem: ItemModel
+            ): Boolean {
 
                 return oldTripItem == newTripItem
             }

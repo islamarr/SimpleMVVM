@@ -26,7 +26,6 @@ import org.json.JSONObject
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
-import timber.log.Timber
 
 
 class CarTypesFragment : Fragment(), KodeinAware {
@@ -57,7 +56,6 @@ class CarTypesFragment : Fragment(), KodeinAware {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                Timber.d(s.toString())
                 filter(s.toString())
             }
 

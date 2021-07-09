@@ -10,7 +10,8 @@ import com.islam.task.generalUtils.Utils
 import org.json.JSONObject
 import timber.log.Timber
 
-class ManufacturerDataSource(private val repository: ManufacturerRepository) : PagingSource<Int, ItemModel>() {
+class ManufacturerDataSource(private val repository: ManufacturerRepository) :
+    PagingSource<Int, ItemModel>() {
 
     companion object {
         private const val START_INDEX = 0
@@ -20,8 +21,6 @@ class ManufacturerDataSource(private val repository: ManufacturerRepository) : P
         val pos = params.key ?: START_INDEX
 
         return try {
-
-            Timber.d(pos.toString())
 
             val wkda = repository.getManufacturer(pos, Const.PAGE_SIZE).wkda
             val gson = Gson()
@@ -35,7 +34,7 @@ class ManufacturerDataSource(private val repository: ManufacturerRepository) : P
                 if (arr.isEmpty()) null else pos + 1
             )
         } catch (exception: Exception) {
-            Timber.d(exception.message.toString())
+            Timber.e(exception.message.toString())
             LoadResult.Error(exception)
         }
     }

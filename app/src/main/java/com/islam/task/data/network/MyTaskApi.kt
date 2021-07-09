@@ -3,7 +3,7 @@ package com.islam.task.data.network
 import com.islam.task.data.network.internet.ConnectivityInterCeptor
 import com.islam.task.generalUtils.Utils
 import com.google.gson.GsonBuilder
-import com.islam.task.data.network.response.ManufacturerResponse
+import com.islam.task.data.network.response.MainResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -50,20 +50,20 @@ interface MyTaskApi {
         @Query("wa_key") wa_key: String,
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
-    ): Response<ManufacturerResponse>
+    ): Response<MainResponse>
 
     @GET("main-types")
     suspend fun getMainCarTypes(
         @Query("wa_key") wa_key: String,
         @Query("manufacturer") manufacturer: Int,
-    ): Response<ManufacturerResponse>
+    ): Response<MainResponse>
 
     @GET("built-dates")
     suspend fun getCarDates(
         @Query("wa_key") wa_key: String,
         @Query("manufacturer") manufacturer: Int,
         @Query("main-type") mainType: String,
-    ): Response<ManufacturerResponse>
+    ): Response<MainResponse>
 
 }
 

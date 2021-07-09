@@ -3,11 +3,11 @@ package com.islam.task.ui.manufacturer
 import androidx.lifecycle.ViewModel
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import com.islam.task.data.network.response.ManufacturerResponse
 import com.islam.task.data.repositories.ManufacturerRepository
 import com.islam.task.generalUtils.Const
 
-class ManufacturerViewModel(private val manufacturerRepository: ManufacturerRepository) : ViewModel() {
+class ManufacturerViewModel(private val manufacturerRepository: ManufacturerRepository) :
+    ViewModel() {
 
     var manufacturerList =
         Pager(
@@ -21,7 +21,4 @@ class ManufacturerViewModel(private val manufacturerRepository: ManufacturerRepo
             }
         ).flow
 
-    suspend fun getManufacturer() : ManufacturerResponse {
-       return manufacturerRepository.getManufacturer(0, Const.PAGE_SIZE)
-    }
 }

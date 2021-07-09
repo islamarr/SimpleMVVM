@@ -3,7 +3,6 @@ package com.islam.task.ui.carTypes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.islam.task.data.repositories.CarTypesRepository
-import com.islam.task.data.repositories.ManufacturerRepository
 
 class CarTypesViewModelFactory(
     private val carTypesRepository: CarTypesRepository,

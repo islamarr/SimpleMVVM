@@ -41,6 +41,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    configurations.all {
+        resolutionStrategy {
+            force 'androidx.test:monitor:1.4.0-alpha06'
+        }
+    }
 }
 
 dependencies {
@@ -80,6 +85,9 @@ dependencies {
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidx_test_espresso"
+    def fragment_version = "1.3.5"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
     testImplementation 'org.json:json:20180813'
 }

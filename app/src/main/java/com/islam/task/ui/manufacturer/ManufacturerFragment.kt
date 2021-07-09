@@ -1,11 +1,9 @@
 package com.islam.task.ui.manufacturer
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -59,10 +57,9 @@ class ManufacturerFragment : Fragment(), KodeinAware {
         }
 
         manufacturerAdapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading){
+            if (loadState.refresh is LoadState.Loading) {
                 loadingProgressBar.visibility = View.VISIBLE
-            }
-            else{
+            } else {
                 emptyList.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE
 

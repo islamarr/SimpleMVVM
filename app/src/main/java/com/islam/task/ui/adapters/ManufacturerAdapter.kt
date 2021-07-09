@@ -58,7 +58,7 @@ class ManufacturerAdapter(
         private var row: LinearLayout = itemView.row
 
         fun bind(listItems: ItemModel) {
-            label.text = "${listItems.value}"
+            label.text = itemView.context.getString(R.string.label, listItems.value)
 
             if (layoutPosition % 2 == 0) row.setBackgroundColor(
                 ContextCompat.getColor(

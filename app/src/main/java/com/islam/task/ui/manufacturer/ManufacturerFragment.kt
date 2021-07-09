@@ -32,6 +32,7 @@ class ManufacturerFragment : Fragment(), KodeinAware {
 
     private lateinit var viewModel: ManufacturerViewModel
     private val factory: ManufacturerViewModelFactory by instance()
+    private lateinit var manufacturerAdapter: ManufacturerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,24 +45,12 @@ class ManufacturerFragment : Fragment(), KodeinAware {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar.text = "Manufacturer"
+        toolbar.text = getString(R.string.manufacturer)
         search.visibility = View.GONE
 
         viewModel = ViewModelProvider(this, factory).get(ManufacturerViewModel::class.java)
 
-        val manufacturerAdapter = ManufacturerAdapter(object : NavigateListener {
-            override fun onNavigate(itemModel: ItemModel) {
-                SummaryObject.summaryModel.manufacturerCode = itemModel.key
-                SummaryObject.summaryModel.manufacturerName = itemModel.value
-
-                findNavController().navigate(R.id.action_manufacturerFragment_to_carTypesFragment)
-            }
-
-        })
-        list.apply {
-            layoutManager = LinearLayoutManager(requireActivity())
-            adapter = manufacturerAdapter
-        }
+        initRecyclerView()
 
         lifecycleScope.launch {
             viewModel.manufacturerList.collectLatest {
@@ -91,6 +80,22 @@ class ManufacturerFragment : Fragment(), KodeinAware {
         }
 
 
+    }
+
+    private fun initRecyclerView() {
+        list.apply {
+            manufacturerAdapter = ManufacturerAdapter(object : NavigateListener {
+                override fun onNavigate(itemModel: ItemModel) {
+                    SummaryObject.summaryModel.manufacturerCode = itemModel.key
+                    SummaryObject.summaryModel.manufacturerName = itemModel.value
+
+                    findNavController().navigate(R.id.action_manufacturerFragment_to_carTypesFragment)
+                }
+
+            })
+            layoutManager = LinearLayoutManager(requireActivity())
+            adapter = manufacturerAdapter
+        }
     }
 
 }

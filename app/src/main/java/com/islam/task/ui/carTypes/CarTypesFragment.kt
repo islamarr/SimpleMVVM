@@ -47,7 +47,10 @@ class CarTypesFragment : Fragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        toolbar.text = "Car Types >> ${SummaryObject.summaryModel.manufacturerName}"
+        toolbar.text = getString(
+            R.string.car_types_title,
+            SummaryObject.summaryModel.manufacturerName
+        )
         search.visibility = View.VISIBLE
 
         search.addTextChangedListener(object : TextWatcher {
@@ -79,19 +82,9 @@ class CarTypesFragment : Fragment(), KodeinAware {
                     emptyList.visibility = View.VISIBLE
                     return@main
                 }
-                mainAdapter = MainAdapter(arr, object : NavigateListener {
-                    override fun onNavigate(itemModel: ItemModel) {
-                        SummaryObject.summaryModel.carType = itemModel.key
-                        findNavController().navigate(R.id.action_carTypesFragment_to_carDatesFragment)
-                    }
 
-                })
+                initRecyclerView()
 
-
-                list.apply {
-                    layoutManager = LinearLayoutManager(requireActivity())
-                    adapter = mainAdapter
-                }
             } catch (e: ApiException) {
                 loadingProgressBar.visibility = View.GONE
                 emptyList.visibility = View.VISIBLE
@@ -103,6 +96,20 @@ class CarTypesFragment : Fragment(), KodeinAware {
             }
         }
 
+    }
+
+    private fun initRecyclerView() {
+        list.apply {
+            mainAdapter = MainAdapter(arr, object : NavigateListener {
+                override fun onNavigate(itemModel: ItemModel) {
+                    SummaryObject.summaryModel.carType = itemModel.key
+                    findNavController().navigate(R.id.action_carTypesFragment_to_carDatesFragment)
+                }
+
+            })
+            layoutManager = LinearLayoutManager(requireActivity())
+            adapter = mainAdapter
+        }
     }
 
     fun filter(text: String?) {

@@ -24,8 +24,13 @@ class SummaryFragment : Fragment() {
 
         val it = SummaryObject.summaryModel
 
-        summaryText.text =
-            "${it.manufacturerName}  ${it.manufacturerCode}  ${it.carType}  ${it.carDate}"
+        summaryText.text = getString(
+            R.string.summary_details,
+            it.manufacturerName,
+            it.manufacturerCode,
+            it.carType,
+            it.carDate
+        )
 
     }
 

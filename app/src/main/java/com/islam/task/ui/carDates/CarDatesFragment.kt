@@ -28,9 +28,9 @@ class CarDatesFragment : Fragment(), KodeinAware {
 
     override val kodein by kodein()
 
-
     private lateinit var viewModel: CarDatesViewModel
     private val factory: CarDatesViewModelFactory by instance()
+    private lateinit var arr: MutableList<ItemModel>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +42,12 @@ class CarDatesFragment : Fragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        toolbar.text =
-            "Car Built Date >> ${SummaryObject.summaryModel.manufacturerName}  >> ${SummaryObject.summaryModel.carType}"
+        toolbar.text = getString(
+            R.string.car_built_date_title,
+            SummaryObject.summaryModel.manufacturerName,
+            SummaryObject.summaryModel.carType
+        )
+
         search.visibility = View.GONE
 
         viewModel = ViewModelProvider(this, factory).get(CarDatesViewModel::class.java)
@@ -58,7 +62,7 @@ class CarDatesFragment : Fragment(), KodeinAware {
                 val gson = Gson()
                 val jsonObject = gson.toJsonTree(wkda).asJsonObject
                 val stringJsonObj = JSONObject(jsonObject.toString())
-                val arr = Utils.convertJsonToArray(stringJsonObj)
+                arr = Utils.convertJsonToArray(stringJsonObj)
 
                 emptyList.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE
@@ -68,21 +72,9 @@ class CarDatesFragment : Fragment(), KodeinAware {
                     return@main
                 }
 
-                val mainAdapter = MainAdapter(arr, object : NavigateListener {
-                    override fun onNavigate(itemModel: ItemModel) {
-                        SummaryObject.summaryModel.carDate = itemModel.key
+                initRecyclerView()
 
-                        findNavController().navigate(R.id.action_carDatesFragment_to_summaryFragment)
-
-                    }
-
-                })
-
-                list.apply {
-                    layoutManager = LinearLayoutManager(requireActivity())
-                    adapter = mainAdapter
-                }
-            }  catch (e: ApiException) {
+            } catch (e: ApiException) {
                 loadingProgressBar.visibility = View.GONE
                 emptyList.visibility = View.VISIBLE
                 emptyList.text = getString(R.string.error)
@@ -93,6 +85,22 @@ class CarDatesFragment : Fragment(), KodeinAware {
             }
         }
 
+    }
+
+    private fun initRecyclerView() {
+        list.apply {
+            val mainAdapter = MainAdapter(arr, object : NavigateListener {
+                override fun onNavigate(itemModel: ItemModel) {
+                    SummaryObject.summaryModel.carDate = itemModel.key
+
+                    findNavController().navigate(R.id.action_carDatesFragment_to_summaryFragment)
+
+                }
+
+            })
+            layoutManager = LinearLayoutManager(requireActivity())
+            adapter = mainAdapter
+        }
     }
 
 }

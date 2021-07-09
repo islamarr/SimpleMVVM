@@ -25,14 +25,12 @@ class SplashFragment : Fragment(), KodeinAware {
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
         startApp()
     }
 
     private fun startApp() {
         lifecycleScope.launch {
-            delay(300)
+            delay(2000)
 
             findNavController().navigate(R.id.action_splash_to_manufacturerFragment)
 

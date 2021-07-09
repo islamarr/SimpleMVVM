@@ -69,8 +69,8 @@ class CarTypesFragment : Fragment(), KodeinAware {
 
                 val gson = Gson()
                 val jsonObject = gson.toJsonTree(wkda).asJsonObject
-                val startingJsonObj = JSONObject(jsonObject.toString())
-                arr = Utils.convertJsonToArray(startingJsonObj)
+                val stringJsonObj = JSONObject(jsonObject.toString())
+                arr = Utils.convertJsonToArray(stringJsonObj)
 
                 emptyList.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE
@@ -86,7 +86,6 @@ class CarTypesFragment : Fragment(), KodeinAware {
                     }
 
                 })
-
 
 
                 list.apply {

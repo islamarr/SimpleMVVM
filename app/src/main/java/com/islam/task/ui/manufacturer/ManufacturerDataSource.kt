@@ -25,8 +25,8 @@ class ManufacturerDataSource(private val repository: ManufacturerRepository) :
             val wkda = repository.getManufacturer(pos, Const.PAGE_SIZE).wkda
             val gson = Gson()
             val jsonObject = gson.toJsonTree(wkda).asJsonObject
-            val startingJsonObj = JSONObject(jsonObject.toString())
-            val arr = Utils.convertJsonToArray(startingJsonObj)
+            val stringJsonObj = JSONObject(jsonObject.toString())
+            val arr = Utils.convertJsonToArray(stringJsonObj)
 
             LoadResult.Page(
                 arr,

@@ -57,8 +57,8 @@ class CarDatesFragment : Fragment(), KodeinAware {
 
                 val gson = Gson()
                 val jsonObject = gson.toJsonTree(wkda).asJsonObject
-                val startingJsonObj = JSONObject(jsonObject.toString())
-                val arr = Utils.convertJsonToArray(startingJsonObj)
+                val stringJsonObj = JSONObject(jsonObject.toString())
+                val arr = Utils.convertJsonToArray(stringJsonObj)
 
                 emptyList.visibility = View.GONE
                 loadingProgressBar.visibility = View.GONE

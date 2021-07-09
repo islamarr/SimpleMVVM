@@ -18,12 +18,12 @@ object Utils {
             URL
     }
 
-    fun convertJsonToArray(startingJsonObj: JSONObject): MutableList<ItemModel> {
+    fun convertJsonToArray(stringJsonObj: JSONObject): MutableList<ItemModel> {
 
         val list = mutableListOf<ItemModel>()
-        for (key in startingJsonObj.keys()) {
-            val value = startingJsonObj.opt(key)
-            list.add(ItemModel(key, value as String))
+        for (key in stringJsonObj.keys()) {
+            val value = stringJsonObj.opt(key as String) as String
+            list.add(ItemModel(key, value))
         }
         return list
     }

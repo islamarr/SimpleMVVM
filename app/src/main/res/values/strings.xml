@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">IslamTask</string>
+    <!-- Strings related to splash -->
+    <string name="spalsh_message">Welcome to My Task</string>
+
+    <string name="no_internet_connection">Make sure you have an active Internet connection!</string>
+    <string name="error">Something went wrong, try again!</string>
+
+    <string name="label">%1$s</string>
+    <string name="car_built_date_title">Car Built Date >> %1$s >> %2$s</string>
+    <string name="car_types_title">Car Types >> %1$s</string>
+    <string name="manufacturer">Manufacturer</string>
+    <string name="summary_details">
+        Manufacturer Name: %1$s \n\n
+        Manufacturer Code: %2$s \n\n
+        Car Type: %3$s \n\n
+        Car Built Date: %4$s \n\n
+    </string>
+    <string name="search">Search</string>
+    <string name="summary">Summary</string>
+    <string name="empty_list">No items currently available</string>
+
+</resources>

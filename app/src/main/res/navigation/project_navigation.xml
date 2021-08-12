@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:defaultNavHost="true"
+    app:startDestination="@id/splash">
+
+    <fragment
+        android:id="@+id/splash"
+        android:name="com.islam.task.ui.splash.SplashFragment"
+        android:label="splash"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splash_to_manufacturerFragment"
+            app:destination="@id/manufacturerFragment"
+            app:popUpTo="@+id/navigation"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/manufacturerFragment"
+        android:name="com.islam.task.ui.manufacturer.ManufacturerFragment"
+        android:label="manufacturer_fragment"
+        tools:layout="@layout/item_list">
+
+        <action
+            android:id="@+id/action_manufacturerFragment_to_carTypesFragment"
+            app:destination="@id/carTypesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/carDatesFragment"
+        android:name="com.islam.task.ui.carDates.CarDatesFragment"
+        android:label="car_dates_fragment"
+        tools:layout="@layout/main_fragment" >
+
+        <action
+            android:id="@+id/action_carDatesFragment_to_summaryFragment"
+            app:destination="@id/summaryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/summaryFragment"
+        android:name="com.islam.task.ui.summary.SummaryFragment"
+        android:label="summary_fragment"
+        tools:layout="@layout/summary_fragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/carTypesFragment"
+        android:name="com.islam.task.ui.carTypes.CarTypesFragment"
+        android:label="car_types_fragment"
+        tools:layout="@layout/main_fragment" >
+  
+        <action
+            android:id="@+id/action_carTypesFragment_to_carDatesFragment"
+            app:destination="@id/carDatesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+</navigation>
